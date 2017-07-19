@@ -22,25 +22,23 @@ models.forEach(function (model) {
 });
 var app = express();
 
-// Indicamos que use sesiones, para almacenar el objeto usuario
-// y que lo recuerde aunque abandonemos la página
+// use sessions
 app.use(session({ secret: 'lollllo' }));
 
-// Configuración de passport
+// Passport config
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Rutas de Passport
+// Passport routes
 app.get('/logout', function(req, res) {
   req.logout();
   res.redirect('/');
 });
 
-// Ruta para autenticarse con Twitter (enlace de login)
+// Twitter login
 app.get('/auth/twitter', passport.authenticate('twitter'));
 
-// Ruta de callback, a la que redirigirá tras autenticarse con Twitter.
-// En caso de fallo redirige a otra vista '/login'
+// Callback after Twitter login
 app.get('/auth/twitter/callback', passport.authenticate('twitter',
   { successRedirect: '/', failureRedirect: '/' }
 ));
