@@ -23,7 +23,7 @@ models.forEach(function (model) {
 var app = express();
 
 // use sessions
-app.use(session({ secret: 'lollllo' }));
+app.use(session({ secret: 'lollllo', cookie: { maxAge: 15 * 24 * 60 * 60 * 1000 } }));
 
 // Passport config
 app.use(passport.initialize());

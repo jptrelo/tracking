@@ -4,9 +4,11 @@ var Schema = mongoose.Schema;
 
 // Fields
 var TrackSchema = new Schema({
-	name		: String,
-	provider_id : {type: String, unique: true}, // Twitter ID
-	photo		: String, // Avatar
+	user_id		: {type : Schema.Types.ObjectId, ref : 'User'},
+	project_id  : {type : Schema.Types.ObjectId, ref : 'Project'},
+	task_name	: String,	
+	startedAt	: Date, // Avatar
+	finishedAt	: {type: Date, default: Date.now},
 	createdAt	: {type: Date, default: Date.now}
 });
 
