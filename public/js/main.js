@@ -14,4 +14,16 @@ $(function () {
 		}
 		
 	});
+
+	$("#btnSaveProject").click(function () {
+		$.ajax({
+		  method: "POST",
+		  url: "/project/",
+		  data: { txtProject : $("#txtModalProject").val() }
+		})
+		  .done(function( data ) {
+		  	console.log(data);
+		    $("#txtProject").val(data.name);
+		  });
+	});
 });

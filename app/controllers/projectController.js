@@ -12,7 +12,7 @@ module.exports = function (app) {
 router.post('/project/', function (req, res, next) {
   Project.create({
     user_id   : req.user._id,
-    project_name : req.body.txtProject
+    name : req.body.txtProject
   }, 
   function (err, projects) {
       if (err) return res.status(500).send("There was a problem adding the information to the database. " + err);

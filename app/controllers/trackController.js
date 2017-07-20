@@ -12,10 +12,10 @@ module.exports = function (app) {
 router.post('/track/', function (req, res, next) {
   Track.create({
     user_id		: req.user._id,
-	project_id  : req.body.txtProject,
-	task_name	: req.body.txtTask,
-	startedAt	: req.body.dateStarted,
-	finishedAt	: req.body.dateFinished
+  	project_id  : req.body.txtProject,
+  	task_name	: req.body.txtTask,
+  	startedAt	: req.body.dateStarted,
+  	finishedAt	: req.body.dateFinished
   }, 
   function (err, track) {
       if (err) return res.status(500).send("There was a problem adding the information to the database. " + err);
