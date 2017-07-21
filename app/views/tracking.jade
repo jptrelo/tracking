@@ -1,25 +1,37 @@
 div(class="row")
-	div(class="col-xs-4")
-		input(type="text", name="txtTask", class="form-control", placeholder="What are you working on?")
-	div(class="col-xs-4 input-group pull-left", data-toggle="modal", data-target="#myModal")
-		span(class="input-group-addon")
-			i(class="glyphicon glyphicon-plus")
-		input(type="text", id="txtProject", class="form-control", readonly="true", placeholder="Create a project")
-	div(class="col-xs-2")
-		input(type="text", name="txtTimer", id="txtTimer", value="0:00:00", class="form-control")
-	div(class="col-xs-2")
-		button(id="aTrigger", class="btn btn-success") Start
+	form(id="frmTrack", name="frmTrack", action="/", onSubmit="return false;")
+		div(class="col-sm-4")
+			input(type="text", name="txtTask", class="form-control", placeholder="What are you working on?")
+		div(class="col-sm-4 input-group pull-left c_time", data-toggle="modal", data-target="#myModal")
+			span(class="input-group-addon")
+				i(class="glyphicon glyphicon-plus")
+			input(type="text", name="txtProject", id="txtProject", class="form-control", readonly="true", placeholder="Create a project")
+			input(type="hidden", name="hdnProjectID", id="hdnProjectID")			
+		div(class="col-sm-3 c_time")
+			input(type="text", name="txtTimer", id="txtTimer", value="0:00:00", class="form-control")
+			input(type="datetime-local", name="dateStarted", id="dateStarted", class="form-control")
+			input(type="datetime-local", name="dateFinished", id="dateFinished", class="form-control")
+		div(class="col-sm-1")
+			div(class="pull-left")
+				button(id="aTrigger", class="btn btn-sm btn-success") Start
+			div(class="pull-right")
+				input(type="radio", name="rbtnTrackType", value="0", checked="checked")
+			div(class="pull-right")
+				input(type="radio", name="rbtnTrackType", value="1")
 
 div(class="row")
-	div(class="col-xs-12")
-	table(class="table table-striped")
+	div(class="col-sm-12")
+	table(class="table table-striped", id="tblTracks")
 		thead
 			tr
-				th(colspan="5") Activity
+				th(colspan="6") Activity
 		tbody
+		each track in tracks
 			tr
-				td task
-				td project
-				td started
-				td finished
-				td duration
+				td=track.task_name
+				td=track.project_id.name
+				td=moment(track.startedAt).format("HH:mm:ss")
+				td=moment(track.finishedAt).format("HH:mm:ss")
+				td=moment(track.finishedAt).diff(moment(track.startedAt))
+				td(class="col-sm-1") 
+					button(id="aTrigger", class="btn btn-sm btn-default") Continue

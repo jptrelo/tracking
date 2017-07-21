@@ -5,12 +5,14 @@ var express = require('express'),
 
 
 module.exports = function (app) {
-  app.use('/', router);
+  app.use('/project', router);
 };
 
-// Create a new project
-router.post('/project/', function (req, res, next) {
-  Project.create({
+//POST - Insert a new register
+module.exports.add = function(req, res) {
+    console.log('POST /project');
+    console.log(req.body);
+    Project.create({
     user_id   : req.user._id,
     name : req.body.txtProject
   }, 
@@ -18,13 +20,13 @@ router.post('/project/', function (req, res, next) {
       if (err) return res.status(500).send("There was a problem adding the information to the database. " + err);
       res.status(200).send(projects);
   });
+};
 
-});
-
-// Return all the projects
-router.get('/project/', function (req, res, next) {
-    Project.find().populate('user_id').exec(function (err, projects) {
+//GET - Return all registers
+module.exports.findAll = function(req, res) {
+    Project.find(function (err, projects) {
         if (err) return res.status(500).send("There was a problem finding the projects. " + err);
+        console.log('GET /project');
         res.status(200).send(projects);
-    });
-});
+    }).populate('user_id');
+};

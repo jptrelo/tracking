@@ -6,9 +6,9 @@ var Schema = mongoose.Schema;
 var TrackSchema = new Schema({
 	user_id		: {type : Schema.Types.ObjectId, ref : 'User'},
 	project_id  : {type : Schema.Types.ObjectId, ref : 'Project'},
-	task_name	: String,	
+	task_name	: {type: String, default: 'No name'},	
 	startedAt	: Date, // Avatar
-	finishedAt	: {type: Date, default: Date.now},
+	finishedAt	: Date,
 	createdAt	: {type: Date, default: Date.now}
 });
 
