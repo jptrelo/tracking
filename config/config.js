@@ -27,7 +27,7 @@ var config = {
       name: 'tracking'
     },
     port: process.env.PORT || 3000,
-    db: 'mongodb://localhost/tracking-production'
+    db: 'mongodb://heroku_rw4r176t:8hje24s6l5tkp2nrk345ut4jl8@ds145997.mlab.com:45997/heroku_rw4r176t'
   }
 };
 
