@@ -1,7 +1,8 @@
 $(function () {
 	// When click on start and stop
 	var start = true;
-	$("#aTrigger").click(function () {
+	var $trackTrigger = $("#aTrigger");
+	$trackTrigger.click(function () {
 		if (start) {
 			Timer.initialize($("#txtTimer"));
 			this.innerHTML = "Stop";
@@ -9,7 +10,7 @@ $(function () {
 			$('input[type=radio][name=rbtnTrackType]').attr('disabled', true);
 			start = false;
 		} else {
-			var form = $("#frmTrack");
+			let form = $("#frmTrack");
 			$('input[type=radio][name=rbtnTrackType]').removeAttr('disabled');
 			if ($('input[type=radio][name=rbtnTrackType]').val() == '0') {
 				// set datetimes when stop
@@ -26,24 +27,11 @@ $(function () {
 			}
 		
 	});
-
-	// Save a project from the Bootstrap Modal.
-	$("#btnSaveProject").click(function () {
-
-		$.ajax({
-		  method: "POST",
-		  url: "/project",
-		  data: { txtProject : $("#txtModalProject").val() }
-		}).done(function( data ) {
-		    $("#txtProject").val(data.name);
-		    $("#hdnProjectID").val(data._id);
-		 });
-	});
-
+	
 	// Configuration if it's a manual track
 	$('input[type=radio][name=rbtnTrackType]').change(function() {
         if (this.value == '0') {
-            $("#aTrigger").html('Start');
+            $trackTrigger.html('Start');
             $("input[type='datetime-local']").hide();
             $("#txtTimer").show();
             $(".c_tp").addClass('col-sm-4');
@@ -53,7 +41,7 @@ $(function () {
             start = true;
         }
         else{
-            $("#aTrigger").html('Save');
+            $trackTrigger.html('Save');
             $("input[type='datetime-local']").show();
             $("#txtTimer").hide();
             $(".c_tp").removeClass('col-sm-4');
@@ -66,11 +54,18 @@ $(function () {
 
 	// To continue tracking a task
     $(document).on("click", ".btnContinue",function () {
-    	var track = JSON.parse(this.dataset.item);
-    	$("input[name='txtTask']").val(track.task_name);
-    	$("input[name='txtProject']").val(track.project_id.name);
-    	$("input[name='hdnProjectID']").val(track.project_id._id);
-    	$("#aTrigger").click();
+    	$.ajax({
+		  method: "GET",
+		  url: "/track/" + this.dataset.item
+		}).done(function( track ) {
+			$("input[name='txtTask']").val(track.task_name);
+	    	$("input[name='txtProject']").val(track.project_id.name);
+	    	$("input[name='hdnProjectID']").val(track.project_id._id);
+	    	$trackTrigger.click();
+		}).fail( function( jqXHR, textStatus, errorThrown ) {
+		    alert( errorThrown );
+		    console.log(textStatus + " - " + errorThrown);
+		});	
     });
 
 	/**
@@ -134,7 +129,7 @@ $(function () {
 				td += '<td>'+ moment(track.finishedAt).format('HH:mm:ss') +'</td>';
 				td += '<td>'+ moment.utc(duration).format("HH:mm:ss") +'</td>';
 				td += "<td class='col-sm-1' >" + 
-						"<button class='btn btn-sm btn-default btnContinue' data-item='"+ JSON.stringify(track) + "'>"+
+						"<button class='btn btn-sm btn-default btnContinue' data-item='"+ track._id + "'>"+
 					 	"Continue </button></td>";
 			//}		
 			

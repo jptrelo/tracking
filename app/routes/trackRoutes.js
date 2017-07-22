@@ -10,3 +10,6 @@ module.exports = function (app) {
 router.route('/track') 
  .get(TrackController.findAll)
  .post(TrackController.add);
+
+router.route('/track/:id') 
+ .get(TrackController.findById);

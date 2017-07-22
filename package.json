@@ -5,9 +5,9 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "test": "NODE_ENV=test mocha --recursive test",
+    "test": "SET NODE_ENV=test mocha --recursive test",
     "test:coverage": "nyc npm test",
-    "test:unit": "mocha --recursive test/middleware test/models test/routes",
+    "test:unit": "mocha --recursive test/ test/middleware test/models test/routes",
     "test:integration": "mocha --recursive test/integration"
   },
   "dependencies": {
@@ -17,6 +17,7 @@
     "express": "^4.13.3",
     "express-session": "^1.15.4",
     "glob": "^6.0.4",
+    "helmet": "^3.8.0",
     "jade": "^1.11.0",
     "method-override": "^2.3.0",
     "moment": "^2.18.1",

@@ -32,3 +32,12 @@ module.exports.findAll = function(req, res, next) {
         res.status(200).jsonp(tracks);
     }).populate('user_id').populate('project_id').sort({startedAt: -1});
 };
+
+//GET - Return a register with specified ID
+module.exports.findById = function(req, res) {
+    Track.findById(req.params.id, function(err, track) {
+      if(err) return res.send(500, err.message);
+      console.log('GET /track/' + req.params.id);
+      res.status(200).jsonp(track);
+    }).populate('user_id').populate('project_id');
+};

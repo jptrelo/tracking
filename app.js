@@ -1,7 +1,8 @@
 var express = require('express'),
   config = require('./config/config'),
   glob = require('glob'),
-  mongoose = require('mongoose');
+  mongoose = require('mongoose'),
+  helmet = require('helmet');
 
 var session = require('express-session')
 
@@ -21,6 +22,8 @@ models.forEach(function (model) {
   require(model);
 });
 var app = express();
+
+app.use(helmet());
 
 // use sessions
 app.use(session({ secret: 'lollllo', cookie: { maxAge: 15 * 24 * 60 * 60 * 1000 } }));

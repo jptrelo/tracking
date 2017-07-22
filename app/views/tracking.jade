@@ -36,4 +36,4 @@ div(class="row")
 				- var duration = moment(track.finishedAt).diff(moment(track.startedAt))
 				td=moment.utc(duration).format("HH:mm:ss")
 				td(class="col-sm-1") 
-					button(class="btn btn-sm btn-default btnContinue", data-item=track) Continue
+					button(class="btn btn-sm btn-default btnContinue", data-item=track._id) Continue
