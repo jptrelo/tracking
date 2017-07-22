@@ -2,9 +2,39 @@ body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
-
+body * {
+  -moz-transition-duration: 0.5s;
+  -o-transition-duration: 0.5s;
+  -webkit-transition-duration: 0.5s;
+  transition-duration: 0.5s;
+  -moz-transform: transition;
+  -o-transform: transition;
+  -ms-transform: transition;
+  -webkit-transform: transition;
+  transform: transition;
+}
 a {
-  color: #00B7FF;
+  color: #00B7FF;  
+}
+a.label{
+	font-size: 1em;
+}
+ul li{
+	list-style: none;
+}
+.c_info h1{
+	margin-top: 0;
+}
+.row{
+	padding-top: 30px;
+}
+.c_user{
+	text-align: right;
+	padding-right: 10px;
+}
+.c_type input{
+	display: block;
+	margin-top: 2px !important;
 }
 .c_time span{
 	cursor: pointer;
@@ -14,7 +44,4 @@ a {
 }
 .c_time input[type="datetime-local"]{
 	display: none;
-}
-div input[type="radio"]{
-	margin: 0;
 }

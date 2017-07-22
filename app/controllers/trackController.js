@@ -20,7 +20,7 @@ module.exports.add = function(req, res) {
     }, 
     function (err, track) {
         if (err) return res.status(500).send("There was a problem adding the information to the database. " + err);
-        res.status(200).send(track);
+        res.status(200).jsonp(track);
     });
 };
 
@@ -29,6 +29,6 @@ module.exports.findAll = function(req, res, next) {
     Track.find(function (err, tracks) {
         if (err) return res.status(500).send("There was a problem finding the track. " + err);
         console.log('GET /track');
-        res.status(200).send(tracks);
+        res.status(200).jsonp(tracks);
     }).populate('user_id').populate('project_id').sort({startedAt: -1});
 };

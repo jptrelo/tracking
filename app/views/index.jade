@@ -1,37 +1,33 @@
 extends layout
 
 block content
-  div(class="container")
-    h1= title
-    p Welcome to #{title}
-    if(user)
-      ul
-        li
-          img(src="#{user.photo}")
-        li Bienvenido 
-          strong #{user.name}
-        li
-          a(href='logout') Salir
+  
+  div(class="container-fluid")
+    div(class="row")
+      div(class="col-sm-6 c_info")
+        h1= title
+        p Welcome to #{title}
+      if(user)
+        div(class="col-sm-6")
+          img(src="#{user.photo}", class="pull-right")
+          ul(class="pull-right c_user")           
+            li Welcome 
+              strong #{user.name}
+            li
+              a(href='logout') Sign out
+
+  if(user)
+    div(class="container-fluid")
 
       include tracking
 
       include projectModal
+        
+  else
+    ul
+      li
+        a(href='auth/twitter', class="label label-info") #{aTwitter} &nbsp;
+          span(class='fa fa-twitter')
           
-    else
-      ul
-        li
-          a(href='auth/twitter') #{aTwitter}
-
-
 block js
-  script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js")
-
-  script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js", integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa", crossorigin="anonymous")
-  
-  script(src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js")  
-
-  script(src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js")
-  
-  script(src="/js/timer.js")
-
-  script(src="/js/main.js")
+  include jsBlock       
