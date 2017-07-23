@@ -54,6 +54,7 @@ $(function () {
 
 	// To continue tracking a task
     $(document).on("click", ".btnContinue",function () {
+    	var radios = $('input[type=radio][name=rbtnTrackType]');
     	$.ajax({
 		  method: "GET",
 		  url: "/track/" + this.dataset.item
@@ -61,6 +62,7 @@ $(function () {
 			$("input[name='txtTask']").val(track.task_name);
 	    	$("input[name='txtProject']").val(track.project_id.name);
 	    	$("input[name='hdnProjectID']").val(track.project_id._id);
+	    	$(radios[0]).prop("checked", true).change();
 	    	$trackTrigger.click();
 		}).fail( function( jqXHR, textStatus, errorThrown ) {
 		    alert( errorThrown );
